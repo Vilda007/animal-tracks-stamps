@@ -58,6 +58,7 @@ def extract_paw_polys(cfg):
 
     parts = [l for l in loops
              if l["ymax"] < src.get("text_cutoff_px", crop.shape[0])
+             and l["ymin"] >= src.get("text_top_cutoff_px", 0)
              and l["area"] > 30]
 
     # two paws in a cell -> k-means (k=2) over part centroids
@@ -97,6 +98,22 @@ def extract_paw_polys(cfg):
             continue
         mindim = min(np.ptp(S[:, 0]), np.ptp(S[:, 1]))
         polys.append((S, mindim, area))
+
+    # --- rotation: pad->toes axis vertical (pointing up) ----------------------
+    # anatomy-based, robust for near-round canine tracks: direction from the
+    # largest part (palm pad) to the centroid of the small parts (toes/claws)
+    i_big = max(range(len(polys)), key=lambda i: polys[i][2])
+    pad_c = polys[i_big][0].mean(axis=0)
+    small = [polys[i] for i in range(len(polys))
+             if i != i_big and polys[i][2] < 0.35 * polys[i_big][2]]
+    if small:
+        toes_c = np.mean([s[0].mean(axis=0) for s in small], axis=0)
+        d = toes_c - pad_c
+        rot = np.pi / 2 - np.arctan2(d[1], d[0])
+        R = np.array([[np.cos(rot), -np.sin(rot)], [np.sin(rot), np.cos(rot)]])
+        polys = [(S @ R.T, m, ar) for S, m, ar in polys]
+        if abs(np.degrees(rot)) > 3:
+            print("rotated paw by %.1f deg" % np.degrees(rot))
 
     got_w = max(S[:, 0].max() for S, _, _ in polys) - \
             min(S[:, 0].min() for S, _, _ in polys)

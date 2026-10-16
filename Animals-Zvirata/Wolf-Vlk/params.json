@@ -1,0 +1,44 @@
+{
+  "animal": {
+    "cz": "Vlk obecný",
+    "en": "Gray wolf",
+    "latin": "Canis lupus"
+  },
+  "stamp": {
+    "name_cz": "VLK",
+    "name_en": "WOLF",
+    "paw": "front",
+    "source": {
+      "sheet": "Tracks-Stopy/STOPY-1.png",
+      "row": 1,
+      "col": 1,
+      "n_rows": 2,
+      "n_cols": 6,
+      "text_cutoff_px": 500,
+      "paw_pick": "larger",
+      "text_top_cutoff_px": 60
+    },
+    "track": {
+      "length_mm": 110.0,
+      "width_mm": 85.0,
+      "relief_depth_mm": 6.0,
+      "claws": true,
+      "rounding_max_mm": 3.2,
+      "base_margin_mm": 6.0,
+      "base_thickness_mm": 4.0,
+      "handle": {
+        "width_mm": 46.0,
+        "height_mm": 28.0,
+        "thickness_mm": 18.0,
+        "corner_r_mm": 4.0
+      },
+      "text_height_mm": 1.4
+    }
+  },
+  "sources": [
+    "https://www.kora.ch/en/species/wolf/signs-in-the-field",
+    "https://www.nps.gov/mora/planyourvisit/upload/Carnivore-Tracks-12-20-21_508.pdf",
+    "https://dfw.state.or.us/Wolves/docs/Wolf_track_identification.pdf"
+  ],
+  "notes": "Front paw up to 110 x 85 mm per KORA (European wolves); NPS guide 89-125 x 75-124 mm; front larger than hind."
+}

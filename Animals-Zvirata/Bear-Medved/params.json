@@ -1,0 +1,43 @@
+{
+  "animal": {
+    "cz": "Medvěd hnědý",
+    "en": "Brown bear",
+    "latin": "Ursus arctos"
+  },
+  "stamp": {
+    "name_cz": "MEDVĚD",
+    "name_en": "BEAR",
+    "paw": "front",
+    "source": {
+      "sheet": "Tracks-Stopy/STOPY-3.png",
+      "row": 0,
+      "col": 0,
+      "n_rows": 2,
+      "n_cols": 6,
+      "text_cutoff_px": 530,
+      "paw_pick": "larger"
+    },
+    "track": {
+      "length_mm": 140.0,
+      "width_mm": 110.0,
+      "relief_depth_mm": 7.0,
+      "claws": true,
+      "rounding_max_mm": 4.0,
+      "base_margin_mm": 7.0,
+      "base_thickness_mm": 5.0,
+      "handle": {
+        "width_mm": 52.0,
+        "height_mm": 32.0,
+        "thickness_mm": 20.0,
+        "corner_r_mm": 5.0
+      },
+      "text_height_mm": 1.4
+    }
+  },
+  "sources": [
+    "https://www.largecarnivores.fi/species/brown-bear/signs-of-a-bear.html",
+    "https://www.kora.ch/en/species/bear/signs-in-the-field",
+    "https://www.adfg.alaska.gov/static/education/educators/pdfs/track_pocket_card.pdf"
+  ],
+  "notes": "Front print 120-150 mm long without claws (Suurpedot.fi); width over 130 mm = adult male. Hind print 180-250 mm, human-foot-like. Note: reference sheet artwork is proportionally narrower (140x110 after scaling) than typical field prints."
+}
