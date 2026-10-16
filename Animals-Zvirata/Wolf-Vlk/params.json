@@ -33,7 +33,9 @@
         "corner_r_mm": 4.0
       },
       "text_height_mm": 1.4,
-      "bevel_mm": 10.0
+      "bevel_mm": 10.0,
+      "bevel_steps": 12,
+      "base_shape": "ellipse"
     }
   },
   "sources": [
