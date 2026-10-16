@@ -186,6 +186,11 @@ def gen_scad(cfg):
     ally = np.concatenate([S[:, 1] for S, _, _ in polys])
     hx = np.ptp(allx) / 2 + margin
     hy = np.ptp(ally) / 2 + margin
+    # ensure the ellipse really contains every outline point (bbox corners!)
+    f = float(np.sqrt((allx / hx) ** 2 + (ally / hy) ** 2).max())
+    if f > 1:
+        hx *= f
+        hy *= f
     h = t["handle"]
     return SCAD_TEMPLATE % dict(
         footprint=footprint_lines,
@@ -231,11 +236,15 @@ module relief() {  // rounded imprint pattern (points down, into the mud)
 }
 
 module base_shape() {
-    // convex circumscribed shape (ellipse or circle) - never copies the track
+    // convex base around the track.
+    // "hull": convex hull of the track + base_margin (default, always safe)
+    // "ellipse" / "circle": circumscribed ellipse/circle
     if (base_shape == "circle")
         circle(r = max(base_rx, base_ry), $fn = 128);
-    else
+    else if (base_shape == "ellipse")
         scale([base_rx, base_ry]) circle(r = 1, $fn = 128);
+    else
+        offset(r = base_margin) hull() footprint();
 }
 
 module stamp_body() {

@@ -34,7 +34,7 @@
       "text_height_mm": 1.4,
       "bevel_mm": 10.0,
       "bevel_steps": 12,
-      "base_shape": "ellipse"
+      "base_shape": "hull"
     }
   },
   "sources": [

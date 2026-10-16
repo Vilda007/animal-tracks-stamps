@@ -2,9 +2,9 @@
 // Params: params.json in the same directory as this file.
 
 base_margin = 7.00;
-base_shape  = "ellipse";  // "ellipse" or "circle"
-base_rx     = 62.04;  // ellipse half-axes incl. margin
-base_ry     = 73.36;
+base_shape  = "hull";  // "ellipse" or "circle"
+base_rx     = 64.83;  // ellipse half-axes incl. margin
+base_ry     = 76.66;
 base_h      = 5.00;
 pattern_h   = 7.00;
 handle_h    = 20.00;
@@ -199,11 +199,15 @@ module relief() {  // rounded imprint pattern (points down, into the mud)
 }
 
 module base_shape() {
-    // convex circumscribed shape (ellipse or circle) - never copies the track
+    // convex base around the track.
+    // "hull": convex hull of the track + base_margin (default, always safe)
+    // "ellipse" / "circle": circumscribed ellipse/circle
     if (base_shape == "circle")
         circle(r = max(base_rx, base_ry), $fn = 128);
-    else
+    else if (base_shape == "ellipse")
         scale([base_rx, base_ry]) circle(r = 1, $fn = 128);
+    else
+        offset(r = base_margin) hull() footprint();
 }
 
 module stamp_body() {
