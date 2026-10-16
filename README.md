@@ -18,14 +18,17 @@ Scripts-Skripty/            generators (extract paw outline from a sheet -> .sca
 
 ### How a stamp is made
 
-1. A paw outline is extracted from a reference sheet (PNG, black track on white)
-   by `Scripts-Skripty/extract_liska.py`: threshold → contour tracing
-   (matplotlib) → per-part clustering (k-means) → Douglas–Peucker
-   simplification → scaling to the real track size.
-2. The script generates an OpenSCAD file: base plate, **rounded** relief
-   (~5 mm tall, domed like real paw pads), handle with the animal's name and
-   L/R marker.
-3. STL export: `openscad -o fox_stamp_L.stl -D 'side="L"' fox_stamp.scad`
+1. Each animal directory has a **`params.json`** config: real track size
+   (length × width, verified against online field guides - source links
+   included), relief depth, claws, edge rounding, base margin, handle size,
+   and the position of the track outline in the reference sheet
+   (row/column, text cutoff).
+2. `Scripts-Skripty/generate_stamp.py <animal-dir>` extracts the outline
+   (threshold → contours → clustering → Douglas–Peucker → scale to real
+   size) and generates an OpenSCAD model: base plate, **rounded** relief
+   (domed like real paw pads), handle with the animal's name and L/R marker.
+3. With `--stl` the script exports both STL variants directly
+   (uses OpenSCAD CLI).
 
 Requirements: Python (numpy, Pillow, matplotlib) and OpenSCAD (CLI for STL export).
 
@@ -54,13 +57,16 @@ Scripts-Skripty/            generátory (extrakce obrysu stopy ze vzoru -> .scad
 
 ### Jak razítko vzniká
 
-1. Obrys tlapky se extrahuje z referenčního obrázku skriptem
-   `Scripts-Skripty/extract_liska.py`: prahování → trasování kontur
-   (matplotlib) → seskupení částí (k-means) → zjednodušení
-   (Douglas–Peucker) → přepočet na reálnou velikost stopy.
-2. Skript vygeneruje OpenSCAD soubor: základní deska, **zaoblený** reliéf
-   (~5 mm, klenutý jako skutečné polštářky tlapky), madlo s názvem a L/R.
-3. Export STL: `openscad -o fox_stamp_L.stl -D 'side="L"' fox_stamp.scad`
+1. Každý adresář zvířete obsahuje konfiguraci **`params.json`**: reálná velikost
+   stopy (délka × šířka, ověřená v online atlasech stop – odkazy uvedeny),
+   hloubka reliéfu, drápy, zaoblení hran, okraj základny, rozměry madla
+   a pozice stopy ve vzorovém obrázku (řádek/sloupec, oříznutí textu).
+2. `Scripts-Skripty/generate_stamp.py <adresar-zvirete>` extrahuje obrys
+   (prahování → kontury → shlukování → Douglas–Peucker → přepočet na reálnou
+   velikost) a vygeneruje OpenSCAD model: základní deska, **zaoblený** reliéf
+   (klenutý jako skutečné polštářky), madlo s názvem a označením L/R.
+3. S přepínačem `--stl` skript rovnou exportuje obě STL varianty
+   (volá OpenSCAD CLI).
 
 Potřeba: Python (numpy, Pillow, matplotlib) a OpenSCAD (CLI pro export STL).
 

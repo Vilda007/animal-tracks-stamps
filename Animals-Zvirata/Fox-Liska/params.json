@@ -1,0 +1,38 @@
+{
+  "animal": {
+    "cz": "Liška obecná",
+    "en": "Red fox",
+    "latin": "Vulpes vulpes"
+  },
+  "stamp": {
+    "name_cz": "LIŠKA",
+    "name_en": "FOX",
+    "paw": "front",
+    "source": {
+      "sheet": "Tracks-Stopy/STOPY-1.png",
+      "row": 0,
+      "col": 3,
+      "n_rows": 2,
+      "n_cols": 6,
+      "text_cutoff_px": 620,
+      "paw_pick": "larger"
+    },
+    "track": {
+      "length_mm": 57.0,
+      "width_mm": 44.0,
+      "relief_depth_mm": 5.0,
+      "claws": true,
+      "rounding_max_mm": 2.6,
+      "base_margin_mm": 5.0,
+      "base_thickness_mm": 4.0,
+      "handle": { "width_mm": 38.0, "height_mm": 24.0, "thickness_mm": 16.0, "corner_r_mm": 4.0 },
+      "text_height_mm": 1.4
+    }
+  },
+  "sources": [
+    "https://gf.nd.gov/wildlife/id/carnivores/red-fox",
+    "https://dnr.maryland.gov/wildlife/Documents/Key-Common-Mammal-Tracks.pdf",
+    "https://campus.murraystate.edu/faculty/tderting/mammalogy2001/Tracks/Doggroup.html"
+  ],
+  "notes": "Front track 51-57 x 44 mm per ND Game & Fish; 44-64 x 38-51 mm per Maryland DNR key. Front paw larger than hind."
+}
