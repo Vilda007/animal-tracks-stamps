@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+_flip.scad
+~$*
+desktop.ini
+Thumbs.db
