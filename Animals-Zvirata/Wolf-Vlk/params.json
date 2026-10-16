@@ -32,7 +32,8 @@
         "thickness_mm": 18.0,
         "corner_r_mm": 4.0
       },
-      "text_height_mm": 1.4
+      "text_height_mm": 1.4,
+      "bevel_mm": 10.0
     }
   },
   "sources": [

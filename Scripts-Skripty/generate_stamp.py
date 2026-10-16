@@ -157,19 +157,27 @@ def poly_str(S):
 def gen_scad(cfg):
     t = cfg["track"]
     polys, _ = extract_paw_polys(cfg)
-    round_max = t.get("rounding_max_mm", 2.6)
+    bevel = t.get("bevel_mm", 10.0)
+    D = t.get("relief_depth_mm", 5.0)
+    NL = 6  # fillet layers per island
     relief_blocks = []
     for S, mindim, area in polys:
-        k = min(round_max, max(0.7, 0.16 * mindim))
-        k1, k2 = 0.45 * k, 0.8 * k
+        # fillet radius: as requested, but capped so small islands (claws)
+        # keep a flat core
+        Rv = min(bevel, max(0.7, 0.45 * mindim))
         P = poly_str(S)
-        relief_blocks.append("""\
-    hull() {
-        translate([0, 0, -0.3])  linear_extrude(0.3) polygon(%s);
-        translate([0, 0, -2.0])  linear_extrude(0.1) offset(r = -%.2f) polygon(%s);
-        translate([0, 0, -3.6])  linear_extrude(0.1) offset(r = -%.2f) polygon(%s);
-        translate([0, 0, -pattern_h]) linear_extrude(0.15) offset(r = -%.2f) polygon(%s);
-    }""" % (P, k1, P, k2, P, k, P))
+        layers = ["        translate([0, 0, -0.3])  linear_extrude(0.32) polygon(%s);" % P]
+        for j in range(1, NL + 1):
+            zj = -D * j / NL
+            arg = zj + D - Rv
+            ins = Rv - (max(0.0, Rv * Rv - arg * arg) ** 0.5)
+            if ins < 0.01:
+                shape = "polygon(%s)" % P
+            else:
+                shape = "offset(r = -%.2f) polygon(%s)" % (ins, P)
+            layers.append("        translate([0, 0, %.2f])  linear_extrude(0.12) %s;"
+                          % (zj, shape))
+        relief_blocks.append("    hull() {\n%s\n    }" % "\n".join(layers))
     footprint_lines = "\n".join("    polygon(%s);" % poly_str(S)
                                 for S, _, _ in polys)
     h = t["handle"]
