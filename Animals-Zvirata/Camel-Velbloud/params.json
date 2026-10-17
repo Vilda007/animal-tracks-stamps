@@ -1,0 +1,45 @@
+{
+  "animal": {
+    "cz": "Velbloud",
+    "en": "Camel",
+    "latin": "Camelus bactrianus",
+    "slug": "camel"
+  },
+  "stamp": {
+    "name_cz": "VELBLOUD",
+    "name_en": "CAMEL",
+    "paw": "front/hind (larger print in sheet)",
+    "source": {
+      "sheet": "Tracks-Stopy/STOPY-2.png",
+      "row": 1,
+      "col": 2,
+      "n_rows": 2,
+      "n_cols": 6,
+      "text_cutoff_px": 470,
+      "text_top_cutoff_px": 20,
+      "paw_pick": "larger"
+    },
+    "track": {
+      "length_mm": 120.0,
+      "relief_depth_mm": 6.5,
+      "claws": true,
+      "bevel_mm": 10.0,
+      "bevel_steps": 12,
+      "base_shape": "hull",
+      "base_margin_mm": 7.0,
+      "base_thickness_mm": 4.0,
+      "handle": {
+        "width_mm": 50.0,
+        "height_mm": 30.0,
+        "thickness_mm": 18.0,
+        "corner_r_mm": 5.0
+      },
+      "text_height_mm": 1.4,
+      "width_mm": 85
+    }
+  },
+  "sources": [
+    "https://studyx.ai/homework/112139089-footprint-animal-actual-length-of-the-footprint-in-centimetres-cm-cat-rabbit-cm-lion-rat"
+  ],
+  "notes": "slightly scaled (real ~150-200 mm)"
+}

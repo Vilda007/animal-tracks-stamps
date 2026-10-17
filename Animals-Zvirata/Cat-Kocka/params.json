@@ -1,0 +1,45 @@
+{
+  "animal": {
+    "cz": "Kočka",
+    "en": "Domestic cat",
+    "latin": "Felis catus",
+    "slug": "cat"
+  },
+  "stamp": {
+    "name_cz": "KOČKA",
+    "name_en": "CAT",
+    "paw": "front/hind (larger print in sheet)",
+    "source": {
+      "sheet": "Tracks-Stopy/STOPY-2.png",
+      "row": 0,
+      "col": 5,
+      "n_rows": 2,
+      "n_cols": 6,
+      "text_cutoff_px": 574,
+      "text_top_cutoff_px": 0,
+      "paw_pick": "larger"
+    },
+    "track": {
+      "length_mm": 35.0,
+      "relief_depth_mm": 4.0,
+      "claws": true,
+      "bevel_mm": 10.0,
+      "bevel_steps": 12,
+      "base_shape": "hull",
+      "base_margin_mm": 4.0,
+      "base_thickness_mm": 4.0,
+      "handle": {
+        "width_mm": 30.0,
+        "height_mm": 20.0,
+        "thickness_mm": 12.0,
+        "corner_r_mm": 3.0
+      },
+      "text_height_mm": 1.4,
+      "width_mm": 15
+    }
+  },
+  "sources": [
+    "https://peecnature.org/learn/nature-guides/track-guide/"
+  ],
+  "notes": "Artwork proportions elongated (35x15 mm)."
+}

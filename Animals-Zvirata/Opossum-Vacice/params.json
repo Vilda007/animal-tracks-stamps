@@ -1,0 +1,45 @@
+{
+  "animal": {
+    "cz": "Vačice",
+    "en": "Virginia opossum",
+    "latin": "Didelphis virginiana",
+    "slug": "opossum"
+  },
+  "stamp": {
+    "name_cz": "VAČICE",
+    "name_en": "OPOSSUM",
+    "paw": "front/hind (larger print in sheet)",
+    "source": {
+      "sheet": "Tracks-Stopy/STOPY-3.png",
+      "row": 1,
+      "col": 4,
+      "n_rows": 2,
+      "n_cols": 6,
+      "text_cutoff_px": 470,
+      "text_top_cutoff_px": 20,
+      "paw_pick": "larger"
+    },
+    "track": {
+      "length_mm": 55.0,
+      "relief_depth_mm": 5.0,
+      "claws": true,
+      "bevel_mm": 10.0,
+      "bevel_steps": 12,
+      "base_shape": "hull",
+      "base_margin_mm": 5.0,
+      "base_thickness_mm": 4.0,
+      "handle": {
+        "width_mm": 36.0,
+        "height_mm": 22.0,
+        "thickness_mm": 14.0,
+        "corner_r_mm": 3.0
+      },
+      "text_height_mm": 1.4,
+      "width_mm": 65
+    }
+  },
+  "sources": [
+    "https://mdc.mo.gov/wildlife/wildlife-facts/mammal-facts/mammal-tracks"
+  ],
+  "notes": ""
+}

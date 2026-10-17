@@ -34,6 +34,56 @@ Scripts-Skripty/            generators (extract paw outline from a sheet -> .sca
 
 Requirements: Python (numpy, Pillow, matplotlib) and OpenSCAD (CLI for STL export).
 
+### Animals / Zvířata
+
+36 animals · 36 zvířat (each has L+R STL, `.scad`, mask, previews, `params.json`):
+
+| Dir / Adresář | Animal / Zvíře | Stamp length / délka stopy |
+|---|---|---|
+| Fox-Liska | Liška obecná (Red fox) | 57 mm |
+| Wolf-Vlk | Vlk obecný (Gray wolf) | 110 mm |
+| Bear-Medved | Medvěd hnědý (Brown bear) | 140 mm |
+| Boar-PraseDivoke | Prase divoké (Wild boar) | 75 mm |
+| Pig-Prase | Prase domácí (Domestic pig) | 80 mm |
+| Bull-Byk / Cow-Krava | Býk / Kráva (cattle) | 120 / 110 mm |
+| Horse-Kun | Kůň (Horse) | 130 mm |
+| Sheep-Ovce | Ovce (Sheep) | 65 mm |
+| Rhino-Nosorozec | Nosorožec (Rhino) | 110 mm · scale ~1:2.2 |
+| Elephant-Slon | Slon (Elephant) | 110 mm · scale ~1:3.5 |
+| Camel-Velbloud | Velbloud (Camel) | 120 mm |
+| Llama-Lama | Lama (Llama) | 110 mm |
+| Antelope-Antilopa | Antilopa (Antelope) | 60 mm |
+| Reindeer-Sob | Sob (Reindeer) | 95 mm |
+| Monkey-Opice | Opice (Monkey) | 90 mm |
+| Dog-Pes | Pes (Dog, large) | 90 mm |
+| Cat-Kocka | Kočka (Domestic cat) | 35 mm |
+| Badger-Jezevec | Jezevec (European badger) | 65 mm |
+| Polecat-Tchor | Tchoř (European polecat) | 40 mm |
+| Squirrel-Veverka | Veverka (Red squirrel) | 70 mm · scale ~1.6× up |
+| Hedgehog-Jezek | Ježek (Hedgehog) | 65 mm · scale ~2.5× up |
+| Mole-Krtek | Krtek (Mole) | 50 mm · scale ~2× up |
+| Mouse-Mys | Myš (Wood mouse) | 35 mm · scale ~3.5× up |
+| Hare-Zajic | Zajíc (Brown hare, hind) | 150 mm |
+| Kangaroo-Klokan | Klokan (Kangaroo) | 100 mm · scale ~1:3 |
+| Opossum-Vacice | Vačice (Opossum) | 55 mm |
+| Coati-Nosal | Nosál (Coati) | 80 mm |
+| Crocodile-Krokodyl | Krokodýl (Nile crocodile) | 120 mm |
+| Frog-Zaba | Žába (Frog) | 45 mm · scale ~2× up |
+| Grouse-Tetrev | Tetřev hřímavý (Capercaillie) | 90 mm |
+| Chicken-Kure | Kuře (Chicken) | 65 mm |
+| Pigeon-Holub | Holub (Pigeon) | 45 mm |
+| Duck-Kachna | Kachna (Mallard) | 70 mm |
+| Penguin-Tucnak | Tučňák (Penguin) | 120 mm |
+
+Tiny/huge tracks are scaled to a practical stamp size — `scale` is noted in
+each `params.json` + README. / Příliš malé/velké stopy jsou přeškálovány na
+praktickou velikost razítka — měřítko je uvedeno v `params.json` a README.
+
+The whole set can be regenerated with
+`python Scripts-Skripty/batch_generate.py --generate` (seed params for missing
+animals + run the generator). / Celou sadu lze přegenerovat skriptem
+`batch_generate.py --generate`.
+
 ### 3D printing tips
 
 - No supports needed; print text side up, 0.2 mm layers, PLA/PETG.

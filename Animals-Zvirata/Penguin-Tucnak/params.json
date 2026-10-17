@@ -1,0 +1,45 @@
+{
+  "animal": {
+    "cz": "Tučňák",
+    "en": "Penguin (Gentoo)",
+    "latin": "Pygoscelis papua",
+    "slug": "penguin"
+  },
+  "stamp": {
+    "name_cz": "TUČŇÁK",
+    "name_en": "PENGUIN",
+    "paw": "front/hind (larger print in sheet)",
+    "source": {
+      "sheet": "Tracks-Stopy/STOPY-2.png",
+      "row": 1,
+      "col": 0,
+      "n_rows": 2,
+      "n_cols": 6,
+      "text_cutoff_px": 470,
+      "text_top_cutoff_px": 20,
+      "paw_pick": "larger"
+    },
+    "track": {
+      "length_mm": 120.0,
+      "relief_depth_mm": 6.5,
+      "claws": true,
+      "bevel_mm": 10.0,
+      "bevel_steps": 12,
+      "base_shape": "hull",
+      "base_margin_mm": 7.0,
+      "base_thickness_mm": 4.0,
+      "handle": {
+        "width_mm": 50.0,
+        "height_mm": 30.0,
+        "thickness_mm": 18.0,
+        "corner_r_mm": 5.0
+      },
+      "text_height_mm": 1.4,
+      "width_mm": 68
+    }
+  },
+  "sources": [
+    "https://www.apscience.blog/decode-penguin-footprints-secrets"
+  ],
+  "notes": "gentoo-sized print 110-140 mm"
+}

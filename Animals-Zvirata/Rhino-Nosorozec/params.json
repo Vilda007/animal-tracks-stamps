@@ -1,0 +1,45 @@
+{
+  "animal": {
+    "cz": "Nosorožec",
+    "en": "White rhino",
+    "latin": "Ceratotherium simum",
+    "slug": "rhino"
+  },
+  "stamp": {
+    "name_cz": "NOSOROŽEC",
+    "name_en": "RHINO",
+    "paw": "front/hind (larger print in sheet)",
+    "source": {
+      "sheet": "Tracks-Stopy/STOPY-1.png",
+      "row": 0,
+      "col": 2,
+      "n_rows": 2,
+      "n_cols": 6,
+      "text_cutoff_px": 620,
+      "text_top_cutoff_px": 0,
+      "paw_pick": "larger"
+    },
+    "track": {
+      "length_mm": 110.0,
+      "relief_depth_mm": 6.0,
+      "claws": true,
+      "bevel_mm": 10.0,
+      "bevel_steps": 12,
+      "base_shape": "hull",
+      "base_margin_mm": 6.0,
+      "base_thickness_mm": 4.0,
+      "handle": {
+        "width_mm": 44.0,
+        "height_mm": 26.0,
+        "thickness_mm": 16.0,
+        "corner_r_mm": 4.0
+      },
+      "text_height_mm": 1.4,
+      "width_mm": 125
+    }
+  },
+  "sources": [
+    "https://krugerhelp.co.za/tracks"
+  ],
+  "notes": "scale ~1:2.2 (real front track ~220-300 mm wide) Artwork proportions kept (125x110 mm at 1:2.2 scale)."
+}

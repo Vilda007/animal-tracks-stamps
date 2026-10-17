@@ -1,0 +1,45 @@
+{
+  "animal": {
+    "cz": "Slon",
+    "en": "African elephant",
+    "latin": "Loxodonta africana",
+    "slug": "elephant"
+  },
+  "stamp": {
+    "name_cz": "SLON",
+    "name_en": "ELEPHANT",
+    "paw": "front/hind (larger print in sheet)",
+    "source": {
+      "sheet": "Tracks-Stopy/STOPY-3.png",
+      "row": 1,
+      "col": 0,
+      "n_rows": 2,
+      "n_cols": 6,
+      "text_cutoff_px": 460,
+      "text_top_cutoff_px": 55,
+      "paw_pick": "larger"
+    },
+    "track": {
+      "length_mm": 110.0,
+      "relief_depth_mm": 6.0,
+      "claws": true,
+      "bevel_mm": 10.0,
+      "bevel_steps": 12,
+      "base_shape": "hull",
+      "base_margin_mm": 6.0,
+      "base_thickness_mm": 4.0,
+      "handle": {
+        "width_mm": 44.0,
+        "height_mm": 26.0,
+        "thickness_mm": 16.0,
+        "corner_r_mm": 4.0
+      },
+      "text_height_mm": 1.4,
+      "width_mm": 135
+    }
+  },
+  "sources": [
+    "https://en.upali.ch/foot-and-foot-care/"
+  ],
+  "notes": "scale ~1:3.5 (real print 390-470 mm)"
+}

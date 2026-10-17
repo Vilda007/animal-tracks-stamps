@@ -1,0 +1,47 @@
+{
+  "animal": {
+    "cz": "Ježek",
+    "en": "European hedgehog",
+    "latin": "Erinaceus europaeus",
+    "slug": "hedgehog"
+  },
+  "stamp": {
+    "name_cz": "JEŽEK",
+    "name_en": "HEDGEHOG",
+    "paw": "front/hind (larger print in sheet)",
+    "source": {
+      "sheet": "Tracks-Stopy/STOPY-3.png",
+      "row": 1,
+      "col": 1,
+      "n_rows": 2,
+      "n_cols": 6,
+      "text_cutoff_px": 470,
+      "text_top_cutoff_px": 20,
+      "paw_pick": "larger",
+      "grouping": "distance",
+      "merge_dist_px": 25
+    },
+    "track": {
+      "length_mm": 65.0,
+      "relief_depth_mm": 5.0,
+      "claws": true,
+      "bevel_mm": 10.0,
+      "bevel_steps": 12,
+      "base_shape": "hull",
+      "base_margin_mm": 5.0,
+      "base_thickness_mm": 4.0,
+      "handle": {
+        "width_mm": 36.0,
+        "height_mm": 22.0,
+        "thickness_mm": 14.0,
+        "corner_r_mm": 3.0
+      },
+      "text_height_mm": 1.4,
+      "width_mm": 70
+    }
+  },
+  "sources": [
+    "https://www.naturevolunteers.uk/wp-content/uploads/2019/06/Naturehood-Spotters-guide-Hedgehog.pdf"
+  ],
+  "notes": "scale ~2.5x up (real print ~25 x 28 mm)"
+}

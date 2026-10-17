@@ -1,0 +1,46 @@
+{
+  "animal": {
+    "cz": "Lev",
+    "en": "Lion",
+    "latin": "Panthera leo",
+    "slug": "lion"
+  },
+  "stamp": {
+    "name_cz": "LEV",
+    "name_en": "LION",
+    "paw": "front/hind (larger print in sheet)",
+    "source": {
+      "sheet": "Tracks-Stopy/STOPY-3.png",
+      "row": 0,
+      "col": 5,
+      "n_rows": 2,
+      "n_cols": 6,
+      "text_cutoff_px": 560,
+      "text_top_cutoff_px": 0,
+      "paw_pick": "larger"
+    },
+    "track": {
+      "length_mm": 135.0,
+      "relief_depth_mm": 6.5,
+      "claws": true,
+      "bevel_mm": 10.0,
+      "bevel_steps": 12,
+      "base_shape": "hull",
+      "base_margin_mm": 7.0,
+      "base_thickness_mm": 4.0,
+      "handle": {
+        "width_mm": 50.0,
+        "height_mm": 30.0,
+        "thickness_mm": 18.0,
+        "corner_r_mm": 5.0
+      },
+      "text_height_mm": 1.4,
+      "width_mm": 88
+    }
+  },
+  "sources": [
+    "https://www.lionlandscapes.org/paws-claws",
+    "https://blog.londolozi.com/2012/05/09/how-to-track-a-lion/"
+  ],
+  "notes": "front paw 130-145 x 110-130 mm Artwork proportions narrower (135x88 mm) than field prints."
+}

@@ -61,22 +61,69 @@ def extract_paw_polys(cfg):
              and l["ymin"] >= src.get("text_top_cutoff_px", 0)
              and l["area"] > 30]
 
-    # two paws in a cell -> k-means (k=2) over part centroids
-    C = np.array([[l["cx"], l["cy"]] for l in parts])
-    A = np.array([l["area"] for l in parts])
-    dsum = C[:, 0] + C[:, 1]
-    mu = np.array([C[np.argmin(dsum)], C[np.argmax(dsum)]], dtype=float)
-    for _ in range(50):
-        d = ((C[:, None, :] - mu[None, :, :]) ** 2).sum(axis=2)
-        asg = d.argmin(axis=1)
-        new_mu = np.array([
-            (C[asg == k] * A[asg == k, None]).sum(axis=0) / A[asg == k].sum()
-            if (asg == k).any() else mu[k]
-            for k in range(2)])
-        if np.allclose(new_mu, mu):
-            break
-        mu = new_mu
-    groups = [[i for i in range(len(parts)) if asg[i] == k] for k in range(2)]
+    # drop far outliers before clustering (isolated debris, label spills)
+    if len(parts) > 3:
+        reps = [np.array(l["path"])[::3] for l in parts]
+        keep = []
+        for i, l in enumerate(parts):
+            md = [float(np.min(np.sqrt(
+                ((reps[i][:, None, :] - reps[j][None, :, :]) ** 2).sum(-1))))
+                for j in range(len(parts)) if j != i]
+            if l["area"] < 8000 and (min(md) if md else 0) > 100:
+                continue
+            keep.append(i)
+        if len(keep) < len(parts):
+            print("outlier filter dropped %d parts" % (len(parts) - len(keep)))
+        parts = [parts[i] for i in keep]
+        if len(parts) < 3:
+            parts = [l for l in loops
+                     if l["ymax"] < src.get("text_cutoff_px", crop.shape[0])
+                     and l["ymin"] >= src.get("text_top_cutoff_px", 0)
+                     and l["area"] > 30]
+
+    # --- grouping of parts -> two tracks (paws) in the cell -------------------
+    def union_by_distance():
+        EXP = src.get("merge_dist_px", 30)
+        n = len(parts)
+        parent = list(range(n))
+        def find(i):
+            while parent[i] != i:
+                parent[i] = parent[parent[i]]
+                i = parent[i]
+            return i
+        for i in range(n):
+            for j in range(i + 1, n):
+                pi = np.array(parts[i]["path"])
+                pj = np.array(parts[j]["path"])
+                dd = float(np.min(np.sqrt(
+                    ((pi[:, None, :] - pj[None, :, :]) ** 2).sum(-1))))
+                if dd < EXP:
+                    parent[find(i)] = find(j)
+        gl = {}
+        for i in range(n):
+            gl.setdefault(find(i), []).append(i)
+        return sorted(gl.values(),
+                      key=lambda g: -sum(parts[i]["area"] for i in g))
+
+    if src.get("grouping") == "distance":
+        groups = union_by_distance()
+    else:
+        # default: k-means (k=2) over part centroids (two paws lie diagonally)
+        C = np.array([[l["cx"], l["cy"]] for l in parts])
+        A = np.array([l["area"] for l in parts])
+        dsum = C[:, 0] + C[:, 1]
+        mu = np.array([C[np.argmin(dsum)], C[np.argmax(dsum)]], dtype=float)
+        for _ in range(50):
+            d = ((C[:, None, :] - mu[None, :, :]) ** 2).sum(axis=2)
+            asg = d.argmin(axis=1)
+            new_mu = np.array([
+                (C[asg == k] * A[asg == k, None]).sum(axis=0) / A[asg == k].sum()
+                if (asg == k).any() else mu[k]
+                for k in range(2)])
+            if np.allclose(new_mu, mu):
+                break
+            mu = new_mu
+        groups = [[i for i in range(len(parts)) if asg[i] == k] for k in range(2)]
     groups.sort(key=lambda g: -sum(parts[i]["area"] for i in g))
     pick = groups[0] if src.get("paw_pick", "larger") == "larger" else groups[1]
     front = [parts[i] for i in pick]
@@ -99,6 +146,25 @@ def extract_paw_polys(cfg):
         mindim = min(np.ptp(S[:, 0]), np.ptp(S[:, 1]))
         polys.append((S, mindim, area))
 
+    # --- junk filter: drop small parts far from everything else ---------------
+    # (label fragments, stray marks; real pads/claws always sit close together)
+    if len(polys) > 1:
+        reps = [S[::5] for S, _, _ in polys]
+        areas = [a for _, _, a in polys]
+        keep = []
+        for i in range(len(polys)):
+            if areas[i] >= 15:
+                keep.append(i)
+                continue
+            md = min(float(np.min(np.sqrt(
+                ((reps[i][:, None, :] - reps[j][None, :, :]) ** 2).sum(-1))))
+                for j in range(len(polys)) if j != i)
+            if md <= 12:
+                keep.append(i)
+        if len(keep) < len(polys):
+            print("junk filter dropped %d parts" % (len(polys) - len(keep)))
+        polys = [polys[i] for i in keep]
+
     # --- rotation: pad->toes axis vertical (pointing up) ----------------------
     # anatomy-based, robust for near-round canine tracks: direction from the
     # largest part (palm pad) to the centroid of the small parts (toes/claws)
@@ -106,13 +172,21 @@ def extract_paw_polys(cfg):
     pad_c = polys[i_big][0].mean(axis=0)
     small = [polys[i] for i in range(len(polys))
              if i != i_big and polys[i][2] < 0.35 * polys[i_big][2]]
-    if small:
+    manual = t.get("rotate_deg")
+    if manual is not None:
+        rot = np.radians(manual)
+    elif small:
         toes_c = np.mean([s[0].mean(axis=0) for s in small], axis=0)
         d = toes_c - pad_c
         rot = np.pi / 2 - np.arctan2(d[1], d[0])
+    else:
+        rot = 0.0
+    if t.get("flip_180"):
+        rot += np.pi
+    if abs(np.degrees(rot)) > 1e-9:
         R = np.array([[np.cos(rot), -np.sin(rot)], [np.sin(rot), np.cos(rot)]])
         polys = [(S @ R.T, m, ar) for S, m, ar in polys]
-        if abs(np.degrees(rot)) > 3:
+        if abs(abs(np.degrees(rot) % 360) - 180) > 3 and abs(np.degrees(rot)) > 3:
             print("rotated paw by %.1f deg" % np.degrees(rot))
 
     got_w = max(S[:, 0].max() for S, _, _ in polys) - \
@@ -166,7 +240,7 @@ def gen_scad(cfg):
         # keep a flat core
         Rv = min(bevel, max(0.7, 0.45 * mindim))
         P = poly_str(S)
-        layers = ["        translate([0, 0, -0.3])  linear_extrude(0.32) polygon(%s);" % P]
+        layers = ["        translate([0, 0, -0.5])  linear_extrude(1.7) polygon(%s);" % P]
         for j in range(1, NL + 1):
             zj = -D * j / NL
             arg = zj + D - Rv
@@ -192,6 +266,12 @@ def gen_scad(cfg):
         hx *= f
         hy *= f
     h = t["handle"]
+    hw, hd = h.get("width_mm", 38.0), h.get("height_mm", 24.0)
+    # auto-fit text to the handle
+    size_cz = min(6.4, 0.88 * hw / (0.75 * len(cfg["name_cz"])), 0.27 * hd)
+    size_en = min(5.0, 0.88 * hw / (0.75 * len(cfg["name_en"])), 0.22 * hd)
+    size_side = min(6.4, 0.27 * hd)
+    y_cz, y_en, y_side = 0.11 * hd, -0.13 * hd, -0.30 * hd
     return SCAD_TEMPLATE % dict(
         footprint=footprint_lines,
         relief="\n".join(relief_blocks),
@@ -206,6 +286,8 @@ def gen_scad(cfg):
         handle_r=h.get("corner_r_mm", 4.0),
         text_h=t.get("text_height_mm", 1.4),
         name_cz=cfg["name_cz"], name_en=cfg["name_en"],
+        size_cz=size_cz, size_en=size_en, size_side=size_side,
+        y_cz=y_cz, y_en=y_en, y_side=y_side,
     ), polys
 
 
@@ -253,24 +335,24 @@ module stamp_body() {
         relief();
         linear_extrude(base_h) base_shape();
     }
-    translate([0, 0, base_h - 0.2])
-    linear_extrude(handle_h + 0.2)
+    translate([0, 0, base_h - 1.0])
+    linear_extrude(handle_h + 1.0)
         offset(r = handle_r) offset(delta = -handle_r)
             square([handle_w, handle_d], center = true);
 }
 
 module top_text() {
-    translate([0, 0, base_h + handle_h - 0.1])
-    linear_extrude(text_h)
+    translate([0, 0, base_h + handle_h - 0.5])
+    linear_extrude(text_h + 0.5)
     union() {
-        translate([0, 4.5, 0])
-            text(name_cz, size = 6.4, halign = "center",
+        translate([0, %(y_cz).2f, 0])
+            text(name_cz, size = %(size_cz).2f, halign = "center",
                  font = "Liberation Sans:style=Bold");
-        translate([0, -3.5, 0])
-            text(name_en, size = 4.6, halign = "center",
+        translate([0, %(y_en).2f, 0])
+            text(name_en, size = %(size_en).2f, halign = "center",
                  font = "Liberation Sans:style=Bold");
-        translate([0, -11, 0])
-            text(side, size = 6.4, halign = "center",
+        translate([0, %(y_side).2f, 0])
+            text(side, size = %(size_side).2f, halign = "center",
                  font = "Liberation Sans:style=Bold");
     }
 }
@@ -298,7 +380,7 @@ def main():
     with open(os.path.join(animal_dir, "params.json"), encoding="utf-8") as f:
         cfg = json.load(f)
     scad_cfg = dict(cfg["stamp"])
-    slug = cfg["animal"]["en"].lower().split()[-1]  # "Red fox" -> "fox"
+    slug = cfg["animal"].get("slug") or cfg["animal"]["en"].lower().split()[-1]
 
     scad, polys = gen_scad(scad_cfg)
     scad_path = os.path.join(animal_dir, "%s_stamp.scad" % slug)

@@ -1,0 +1,46 @@
+{
+  "animal": {
+    "cz": "Sob",
+    "en": "Reindeer / caribou",
+    "latin": "Rangifer tarandus",
+    "slug": "reindeer"
+  },
+  "stamp": {
+    "name_cz": "SOB",
+    "name_en": "REINDEER",
+    "paw": "front/hind (larger print in sheet)",
+    "source": {
+      "sheet": "Tracks-Stopy/STOPY-3.png",
+      "row": 1,
+      "col": 5,
+      "n_rows": 2,
+      "n_cols": 6,
+      "text_cutoff_px": 470,
+      "text_top_cutoff_px": 20,
+      "paw_pick": "larger"
+    },
+    "track": {
+      "length_mm": 95.0,
+      "relief_depth_mm": 6.0,
+      "claws": true,
+      "bevel_mm": 10.0,
+      "bevel_steps": 12,
+      "base_shape": "hull",
+      "base_margin_mm": 6.0,
+      "base_thickness_mm": 4.0,
+      "handle": {
+        "width_mm": 44.0,
+        "height_mm": 26.0,
+        "thickness_mm": 16.0,
+        "corner_r_mm": 4.0
+      },
+      "text_height_mm": 1.4,
+      "width_mm": 90,
+      "flip_180": true
+    }
+  },
+  "sources": [
+    "https://worlddeer.org/deer-tracks/"
+  ],
+  "notes": ""
+}
