@@ -35,7 +35,7 @@
         "corner_r_mm": 5.0
       },
       "text_height_mm": 1.4,
-      "width_mm": 50
+      "width_mm": 50.0
     }
   },
   "sources": [

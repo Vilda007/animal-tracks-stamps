@@ -35,11 +35,11 @@
         "corner_r_mm": 4.0
       },
       "text_height_mm": 1.4,
-      "width_mm": 45
+      "width_mm": 90.0
     }
   },
   "sources": [
     "https://www.wildlifetrusts.org/how-identify/identify-tracks"
   ],
-  "notes": ""
+  "notes": "Artwork is squarish (90x90 mm, wide-spread toes); real large-dog tracks are ~90x70 mm."
 }
