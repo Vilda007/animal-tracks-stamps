@@ -1,6 +1,6 @@
 # Animal Tracks Stamps / Razítka stop zvěře
 
-![Liška / Fox](./stopa.jpg)
+<img src="./stopa.jpg" alt="Liška / Fox" width="50%">
 
 ## English
 
