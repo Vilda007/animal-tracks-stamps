@@ -1,5 +1,7 @@
 # Animal Tracks Stamps / Razítka stop zvěře
 
+![Liška / Fox](./stopa.jpg)
+
 ## English
 
 3D-printable **stamps of animal tracks** — press them into mud, clay or sand to
