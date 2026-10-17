@@ -127,6 +127,19 @@ Potřeba: Python (numpy, Pillow, matplotlib) a OpenSCAD (CLI pro export STL).
 - Bez podpěr; tisknout textem nahoru, vrstva 0.2 mm, PLA/PETG.
 - Zatlačit rovnoměrně do měkkého bláta/hlíny — hloubka otisku odpovídá výšce reliéfu.
 
+### MakerWorld parametric generator
+
+`MakerWorld-Generatory/Animal_Tracks_Stamp_Generator.scad` — a single OpenSCAD
+file with **all 36 animals baked in** and a Customizer-style UI:
+dropdown for the animal, **L/R**, scale %, relief depth & bevel radius,
+base plate, handle, custom CZ/EN text and font. Upload it on MakerWorld as a
+parametric model (OpenSCAD 2021.01 compatible — tested locally), or just open
+it in any OpenSCAD. Validated: 36 × L/R renders, all single-shell watertight.
+
+Rebuild it from the pipeline with
+`python Scripts-Skripty/make_makerworld_scad.py` (it reads every animal's
+`params.json` + extraction and emits the generator).
+
 ---
 
 *Project generated in collaboration with Claude Code. No secrets, no credentials
