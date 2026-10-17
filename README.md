@@ -129,7 +129,11 @@ Potřeba: Python (numpy, Pillow, matplotlib) a OpenSCAD (CLI pro export STL).
 
 ### MakerWorld parametric generator
 
-`MakerWorld-Generatory/Animal_Tracks_Stamp_Generator.scad` — a single OpenSCAD
+**Customize-ready version is live on MakerWorld:**
+<https://makerworld.com/en/models/3452861-animal-traces-stamp-generator> —
+pick an animal, L/R and sizes right on the site, download and print.
+
+`MakerWorld-Generatory/Animal_Tracks_Stamp_Generator.scad` — the same single OpenSCAD
 file with **all 36 animals baked in** and a Customizer-style UI:
 dropdown for the animal, **L/R**, scale %, relief depth & bevel radius,
 base plate, handle, custom CZ/EN text and font. Upload it on MakerWorld as a
@@ -139,6 +143,11 @@ it in any OpenSCAD. Validated: 36 × L/R renders, all single-shell watertight.
 Rebuild it from the pipeline with
 `python Scripts-Skripty/make_makerworld_scad.py` (it reads every animal's
 `params.json` + extraction and emits the generator).
+
+### Gallery / Ukázky
+
+CAD-import and print screenshots in `images/`
+(fox paw stamp, hoof stamp pair imported into Onshape/Fusion).
 
 ---
 
